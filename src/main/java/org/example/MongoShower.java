@@ -19,7 +19,7 @@ public class MongoShower {
                 .sort(projection);
 
         for (Document d : results){
-            System.out.println("Something " + d.getString("Title") + " | score=" + d.get("score"));
+            System.out.println(d.getString("Title") + " | score=" + d.get("score"));
         }
     }
 

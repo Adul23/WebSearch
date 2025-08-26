@@ -1,6 +1,8 @@
 package org.example;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.Indexes;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
@@ -27,17 +29,17 @@ public class Controller {
         // which are found in these pages
         controller.addSeed("https://en.wikipedia.org/wiki/Kazakhstan");
 
-        // The factory which creates instances of crawlers.
-        String connectionString = "mongodb://localhost:27017/?maxPoolSize=50";
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
             MongoDatabase database = mongoClient.getDatabase("testdb");
             System.out.println("Connected to database: " + database.getName());
             MongoCollection<Document> collection = database.getCollection("pages");
 
-            collection.createIndex(
-                    new Document("TEXT", "text").append("title", "text")
-            );
+
             if (false){
+                collection.createIndex(
+                        new Document("TEXT", "text").append("title", "text")
+                );
+
                 controller.start(new MongoDBCrawlerFactory(mongoClient, database), numberOfCrawlers);
 
             } else {
@@ -45,10 +47,6 @@ public class Controller {
                 String searchWord = "Kazakhstan";
                 s.find(searchWord);
             }
-
-
-
-
 
         }
 
