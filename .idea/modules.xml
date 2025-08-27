@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/WebSearch_demo.iml" filepath="$PROJECT_DIR$/WebSearch_demo.iml" group="WebSearch_demo" />
-      <module fileurl="file://$PROJECT_DIR$/sentence_transformers/sentence_transformers.iml" filepath="$PROJECT_DIR$/sentence_transformers/sentence_transformers.iml" />
-    </modules>
-  </component>
-</project>
