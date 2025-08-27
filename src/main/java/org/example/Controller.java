@@ -39,7 +39,7 @@ public class Controller {
 
             if (insertIntoMongoDB){
                 collection.createIndex(
-                        new Document("TEXT", "text").append("title", "text")
+                        new Document("TEXT", "text").append("TITLE", "text")
                 );
 
                 controller.start(new MongoDBCrawlerFactory(mongoClient, database), numberOfCrawlers);

@@ -44,7 +44,7 @@ public class MongoDBServImpl implements MongoDBService {
                         new Document("HTML", data.getHtml())
                                 .append("TEXT", data.getText())
                                 .append("URL", webPage.getWebURL().getURL())
-                                .append("Title", data.getTitle());
+                                .append("TITLE", data.getTitle());
                 if (!set.contains(data.getTitle()))
                     collection.insertOne(doc);
             } catch (RuntimeException e) {

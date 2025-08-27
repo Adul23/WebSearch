@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class Crawler extends WebCrawler {
     private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|gif|jpg"
             + "|png|mp3|mp4|zip|gz))$");
-    private static final Pattern imgPatterns = Pattern.compile(".*(\\.(bmp|gif|jpe?g|png|tiff?))$");
+    // private static final Pattern imgPatterns = Pattern.compile(".*(\\.(bmp|gif|jpe?g|png|tiff?))$");
     private final MongoDBService mongoDBService;
 
     public Crawler(MongoDBService mongoDBService) {
