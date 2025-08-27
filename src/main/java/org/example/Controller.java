@@ -11,7 +11,10 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.bson.Document;
 
 public class Controller {
+
     public static void main(String[] args) throws Exception {
+        boolean insertIntoMongoDB = true;
+
         String crawlStorageFolder = "/data/crawl/root";
         int numberOfCrawlers = 2;
 
@@ -34,8 +37,7 @@ public class Controller {
             System.out.println("Connected to database: " + database.getName());
             MongoCollection<Document> collection = database.getCollection("pages");
 
-
-            if (false){
+            if (insertIntoMongoDB){
                 collection.createIndex(
                         new Document("TEXT", "text").append("title", "text")
                 );

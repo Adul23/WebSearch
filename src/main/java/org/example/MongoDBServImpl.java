@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.bson.Document;
 
 import java.sql.PreparedStatement;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Indexes.text;
@@ -21,7 +23,7 @@ import static com.mongodb.client.model.Sorts.metaTextScore;
 public class MongoDBServImpl implements MongoDBService {
     private final MongoClient mongoClient;
     private final MongoDatabase mongoDatabase;
-
+    private HashSet<String> set = new HashSet<>();
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(MongoDBServImpl.class);
 
     public MongoDBServImpl(MongoClient mongoClient, MongoDatabase mongoDatabase) throws RuntimeException {
@@ -37,13 +39,14 @@ public class MongoDBServImpl implements MongoDBService {
             try {
                 HtmlParseData data = (HtmlParseData) webPage.getParseData();
                 MongoCollection<Document> collection = this.mongoDatabase.getCollection("pages");
+
                 Document doc =
                         new Document("HTML", data.getHtml())
                                 .append("TEXT", data.getText())
                                 .append("URL", webPage.getWebURL().getURL())
-                                .append("Title", data.getTitle())
-                        ;
-                collection.insertOne(doc);
+                                .append("Title", data.getTitle());
+                if (!set.contains(data.getTitle()))
+                    collection.insertOne(doc);
             } catch (RuntimeException e) {
                 logger.error("Some Exception while storing webpage for url'{}'", webPage.getWebURL().getURL(), e);
                 throw new RuntimeException(e);
@@ -69,7 +72,7 @@ public class MongoDBServImpl implements MongoDBService {
                 .projection(projection)
                 .sort(projection);
 
-        for (Document d : results){
+        for (Document d : results) {
             System.out.println("Something " + d.getString("Title") + " | score=" + d.get("score"));
         }
     }
